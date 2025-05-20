@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leseru Boys Secondary School</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #0a4275;
+            --secondary-color: #f8b400;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .school-info {
+            text-align: center;
+        }
+        
+        .school-info h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .school-info p {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        /* Navigation Styles */
+        nav {
+            background-color: #0a3562;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .menu li a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .menu li a:hover {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+        
+        .active {
+            background-color: var(--secondary-color);
+            color: var(--dark-color) !important;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            padding: 10px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        /* Menu overlay */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Prevent scrolling when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 500px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('hero-image.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 12px 30px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: #e0a500;
+            transform: translateY(-3px);
+        }
+        
+        /* Sections Style */
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 15%;
+        }
+        
+        /* Features Section */
+        .features {
+            background-color: white;
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .about-image {
+            height: 400px;
+            background: url('school-building.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+        
+        .about-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        /* Staff Section */
+        .staff {
+            background-color: #f9f9f9;
+        }
+        
+        .staff-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .staff-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .staff-image {
+            height: 250px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .staff-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .staff-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .staff-info p {
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Academics Section */
+        .academics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .subject-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .subject-card:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .subject-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .subject-card:hover h3 {
+            color: white;
+        }
+        
+        /* Gallery Section */
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            background-color: #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #f9f9f9;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .contact-info i {
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            min-height: 150px;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #083661;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .menu {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                transition: all 0.3s ease;
+                z-index: 999;
+                overflow-y: auto;
+                padding-top: 70px;
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+            }
+            
+            .menu.active {
+                left: 0;
+            }
+            
+            .menu li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .menu li a {
+                padding: 15px 25px;
+            }
+            
+            .mobile-menu-btn.active {
+                position: fixed;
+                right: 20px;
+                top: 20px;
+            }
+            
+            .school-info h1 {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.6rem;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .school-info h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const menu = document.querySelector('.menu');
+            const body = document.body;
+            
+            // Menu overlay for mobile
+            const overlay = document.createElement('div');
+            overlay.classList.add('menu-overlay');
+            document.body.appendChild(overlay);
+            
+            // Toggle menu function
+            function toggleMenu() {
+                menu.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                body.classList.toggle('menu-open');
+                overlay.classList.toggle('active');
+                
+                // Change icon based on menu state
+                const icon = mobileMenuBtn.querySelector('i');
+                if (menu.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+            
+            // Event listeners
+            mobileMenuBtn.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
+            
+            // Close menu when clicking on a menu item
+            const menuItems = document.querySelectorAll('.menu a');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (menu.classList.contains('active')) {
+                        toggleMenu();
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">
+                    <!-- Replace with actual logo image -->
+                    <img src="logo.jpg" alt="Leseru Boys Secondary School Logo" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div class="school-info">
+                    <h1>LESERU BOYS SECONDARY SCHOOL</h1>
+                    <p>Excellence, Discipline, Integrity</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <ul class="menu">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#staff">Staff</a></li>
+                <li><a href="#academics">Academics</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h2>Welcome to Leseru Boys Secondary School</h2>
+        <p>Nurturing excellence, building character, and inspiring future leaders in Kamagut, Uasin Gishu County</p>
+        <a href="#contact" class="cta-button">Admission Information</a>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Us</h2>
+            </div>
+            <div class="features-container">
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Academic Excellence</h3>
+                    <p>Our school consistently achieves outstanding academic results through dedicated teaching and personalized attention to every student.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Extra-curricular Activities</h3>
+                    <p>We provide a wide range of sports, clubs, and cultural activities to ensure holistic development of our students.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Qualified Teachers</h3>
+                    <p>Our teaching staff consists of experienced, dedicated professionals committed to bringing out the best in every student.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Our School</h2>
+            </div>
+            <div class="about-container">
+                <div class="about-image">
+                    <!-- Replace with actual school building image -->
+                </div>
+                <div class="about-content">
+                    <h3>Our Story</h3>
+                    <p>Established in 1985, Leseru Boys Secondary School has grown to become one of the leading educational institutions in Uasin Gishu County. Located in the serene environment of Kamagut, our school provides an ideal learning atmosphere away from the distractions of urban areas.</p>
+                    <p>Over the years, we have maintained a tradition of excellence in academics, sports, and character development. Our alumni have gone on to make significant contributions in various sectors both locally and internationally.</p>
+                    <h3>Our Mission</h3>
+                    <p>To provide quality education that nurtures academic excellence, fosters character development, and prepares students to be responsible citizens with the skills needed to succeed in the 21st century.</p>
+                    <h3>Our Vision</h3>
+                    <p>To be the leading center of academic excellence and holistic education in the region, producing well-rounded individuals who contribute positively to society.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Staff Section -->
+    <section class="staff" id="staff">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Staff</h2>
+            </div>
+            <div class="staff-container">
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('principal.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mr. James Kiprop</h3>
+                        <p>Principal</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('deputy-principal.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mrs. Sarah Cheruiyot</h3>
+                        <p>Deputy Principal - Academics</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('admin.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mr. David Kibet</h3>
+                        <p>Deputy Principal - Administration</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('dos.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mr. Philip Kosgei</h3>
+                        <p>Director of Studies</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('science-hod.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mrs. Nancy Jepkosgei</h3>
+                        <p>HOD - Sciences</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('languages-hod.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mr. Daniel Rotich</h3>
+                        <p>HOD - Languages</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('math-hod.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mrs. Emily Sang</h3>
+                        <p>HOD - Mathematics</p>
+                    </div>
+                </div>
+                <div class="staff-card">
+                    <div class="staff-image" style="background-image: url('humanities-hod.jpg');"></div>
+                    <div class="staff-info">
+                        <h3>Mr. Joseph Kimaiyo</h3>
+                        <p>HOD - Humanities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Academics Section -->
+    <section class="academics" id="academics">
+        <div class="container">
+            <div class="section-title">
+                <h2>Academic Programs</h2>
+            </div>
+            <div class="academics-container">
+                <div class="subject-card">
+                    <h3>Sciences</h3>
+                    <p>Our science program includes Biology, Chemistry, and Physics with well-equipped laboratories for practical sessions. Students are encouraged to participate in science congresses and exhibitions.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Mathematics</h3>
+                    <p>We have a strong mathematics department with dedicated teachers who employ innovative teaching methods to make the subject accessible and enjoyable for all students.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Languages</h3>
+                    <p>Our language curriculum includes English, Kiswahili, and French. We emphasize communication skills, literature appreciation, and creative writing.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Humanities</h3>
+                    <p>We offer History, Geography, Religious Education, and Business Studies with a focus on critical thinking and real-world applications.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Technical Subjects</h3>
+                    <p>Students can pursue Computer Studies, Agriculture, and other technical subjects to develop practical skills relevant to the modern job market.</p>
+                </div>
+                <div class="subject-card">
+                    <h3>Co-Curricular Activities</h3>
+                    <p>We encourage participation in drama, music, sports, clubs, and societies to foster talent development and leadership skills.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>School Gallery</h2>
+            </div>
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery1.jpg');"></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery2.jpg');"></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery3.jpg');"></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery4.jpg');"></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery5.jpg');"></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery6.jpg');"></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery7.jpg');"></div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image" style="background-image: url('gallery8.jpg');"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Leseru Boys Secondary School, Kamagut, Uasin Gishu County</p>
+                    <p><i class="fas fa-phone"></i> +254 700 123456</p>
+                    <p><i class="fas fa-envelope"></i> info@leseruboys.ac.ke</p>
+                    <p><i class="fas fa-clock"></i> Monday - Friday: 8:00 AM - 5:00 PM</p>
+                    
+                    <div class="map" style="margin-top: 20px; height: 300px; background-color: #ddd;">
+                        <!-- Embed Google Map here -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.5!2d35.1!3d0.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMMCzLjMwLjAiTiAzNcKwMDYnMDAuMCJF!5e0!3m2!1sen!2ske!4v1621234567890!5m2!1sen!2ske" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="" disabled selected>Select a subject</option>
+                                <option value="admission">Admission Inquiries</option>
+                                <option value="fees">Fee Structure</option>
+                                <option value="documents">Required Documents</option>
+                                <option value="transfer">Student Transfer</option>
+                                <option value="visit">School Visit Request</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>Leseru Boys Secondary School</h3>
+                    <p>A center of excellence committed to nurturing academic brilliance and character development in young men.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#staff">Staff</a></li>
+                        <li><a href="#academics">Academics</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Programs</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Regular Programs</a></li>
+                        <li><a href="#">Special Programs</a></li>
+                        <li><a href="#">Sports & Games</a></li>
+                        <li><a href="#">Clubs & Societies</a></li>
+                        <li><a href="#">School Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Important Info</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Admission Requirements</a></li>
+                        <li><a href="#">Fee Structure</a></li>
+                        <li><a href="#">School Rules</a></li>
+                        <li><a href="#">News & Events</a></li>
+                        <li><a href="#">Alumni</a></li>
+                    </ul>
+                </div>
+            </div>
